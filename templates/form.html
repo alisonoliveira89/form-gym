@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Rotina</title>
+    <!-- Link para o arquivo CSS externo -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Formulário de Rotina</h1>
+        <form id="routineForm" action="/send-email" method="POST">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="age">Idade:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="gender">Sexo:</label>
+            <select id="gender" name="gender" required>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </select>
+
+            <label for="exercise">Pratica alguma atividade física?</label>
+            <input type="text" id="exercise" name="exercise" required>
+
+            <label for="meals">Quantas refeições faz por dia?</label>
+            <input type="number" id="meals" name="meals" required>
+
+            <label for="notEat">O que não come?</label>
+            <input type="text" id="notEat" name="notEat">
+
+            <label for="wakeUpTime">Que horário costuma acordar?</label>
+            <input type="time" id="wakeUpTime" name="wakeUpTime" required>
+
+            <label for="sleepTime">Qual horário costuma dormir?</label>
+            <input type="time" id="sleepTime" name="sleepTime" required>
+
+            <label for="medication">Usa algum tipo de medicação?</label>
+            <input type="text" id="medication" name="medication">
+
+            <label for="anabolic">Usa ou já usou anabolizante?</label>
+            <input type="text" id="anabolic" name="anabolic">
+
+            <label for="routine">Descreva sua rotina diária, incluindo refeições e horários:</label>
+            <textarea id="routine" name="routine" rows="5" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
