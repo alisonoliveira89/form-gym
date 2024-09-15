@@ -5,19 +5,20 @@ from email.mime.text import MIMEText
 app = Flask(__name__)
 
 # Função para enviar email
-def send_email(to_email, subject, body):
+def send_email(to_mail, subject, body, cc_mail):
     from_email = "alison.oliveira89@gmail.com"  # Seu email
     from_password = "waod nmdx fmli tvni"  # Senha de aplicativo gerada no Google
 
     msg = MIMEText(body)
     msg["Subject"] = subject
     msg["From"] = from_email
-    msg["To"] = to_email
+    msg["To"] = to_mail
+    msg["Cc"] = cc_mail
 
     # Configurar o servidor SMTP do Gmail
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(from_email, from_password)
-    server.sendmail(from_email, to_email, msg.as_string())
+    server.sendmail(from_email, to_mail, msg.as_string())
     server.quit()
 
 @app.route('/')
@@ -27,6 +28,7 @@ def form():
 @app.route('/send-email', methods=['POST'])
 def send_email_route():
     name = request.form['name']
+    email = request.form['email']
     age = request.form['age']
     gender = request.form['gender']
     exercise = request.form['exercise']
@@ -39,8 +41,9 @@ def send_email_route():
     routine = request.form['routine']
 
     # Construindo o conteúdo do email com os dados do formulário
-    email_body = f"""
+    body = f"""
     Nome: {name}
+    E-mail: {email}
     Idade: {age}
     Sexo: {gender}
     Pratica atividade física: {exercise}
@@ -54,7 +57,7 @@ def send_email_route():
     """
 
     # Enviando email
-    send_email("scarine89@gmail.com", "Dados do Formulário de Rotina", email_body)
+    send_email("alison.oliveira89@gmail.com", "Dados do Formulário de Rotina", body, email)
 
     # Redireciona para a página de sucesso
     return redirect(url_for('success'))
