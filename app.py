@@ -54,7 +54,7 @@ def send_email_route():
     """
 
     # Enviando email
-    send_email("alison.oliveira@mahogany.com.br", "Dados do Formulário de Rotina", email_body)
+    send_email("scarine89@gmail.com", "Dados do Formulário de Rotina", email_body)
 
     # Redireciona para a página de sucesso
     return redirect(url_for('success'))
