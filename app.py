@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import smtplib
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 
@@ -9,16 +10,22 @@ def send_email(to_mail, subject, body, cc_mail):
     from_email = "alison.oliveira89@gmail.com"  # Seu email
     from_password = "waod nmdx fmli tvni"  # Senha de aplicativo gerada no Google
 
-    msg = MIMEText(body)
+    msg = MIMEMultipart()
     msg["Subject"] = subject
     msg["From"] = from_email
     msg["To"] = to_mail
     msg["Cc"] = cc_mail
 
+     # Corpo do email
+    msg.attach(MIMEText(body, "plain"))
+
+    # Lista de destinatários: principal (to_email) + CC (user_email)
+    recipients = [to_mail, cc_mail]
+
     # Configurar o servidor SMTP do Gmail
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(from_email, from_password)
-    server.sendmail(from_email, to_mail, msg.as_string())
+    server.sendmail(from_email, recipients, msg.as_string())
     server.quit()
 
 @app.route('/')
